@@ -37,12 +37,10 @@
 #include <QTableView>
 #include <QStandardItemModel>
 #include <QHeaderView>
-//#include <QScrollArea>
 #include <QScroller>
 #include <QTabWidget>
 #include <QBoxLayout>
 #include <QDebug>
-//#include <QTouchEvent>
 
 #include "qbouton.h"
 #include "slideh.h"
@@ -58,6 +56,7 @@ public:
 //    ~WindowTeleco();
 
     QTabWidget *tabs;
+    QWidget *SUBsTab;
 
     QPushButton *castButton;
 
@@ -186,6 +185,12 @@ public:
     QList<QLineEdit*> *subsNumList;
     QList<QSlider*> *subsList;
     QList<SlideH*> *subsListT;
+    QVBoxLayout *layoutSubs1;
+    QVBoxLayout *layoutSubs2;
+    QBoxLayout *layoutSubs;
+    QVBoxLayout *layoutSU;
+    QHBoxLayout *layoutTitre;
+
 
     QPushButton *Pause;
     QPushButton *GoBack;
@@ -225,7 +230,6 @@ public:
     QPushButton *padClear_2;
     SlideH *testLevelT;
     QProgressBar *testLevel;
-//    QLineEdit *level;
     QPushButton *padPATCH;
     QPushButton *padUNPATCH;
     QPushButton *padPREV;
@@ -241,9 +245,11 @@ public:
     QPushButton *yes_2;
     QPushButton *no_2;
 
+public slots:
+    void orientationChnged(Qt::ScreenOrientation);
+
 protected:
 
- //    bool eventFilter(QObject *obj, QEvent *ev);
 };
 
 

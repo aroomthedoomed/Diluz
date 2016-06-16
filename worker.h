@@ -205,6 +205,8 @@ private slots :
     void nOp();
 
 
+    void updateDimensions(QRect);
+
 private:
 
     bool isConnectedToNetwork();

@@ -24,7 +24,6 @@
 extern int screenWidth;
 extern int screenHeight;
 
-
 WindowTeleco::WindowTeleco(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -42,7 +41,7 @@ tabs->addTab(new QWidget(),"Patch");
 
 QWidget *OSCTab =   tabs->widget(0);
 QWidget *HomeTab =  tabs->widget(1);
-QWidget *SUBsTab =  tabs->widget(2);
+SUBsTab =  tabs->widget(2);
 QWidget *SceneTab = tabs->widget(3);
 QWidget *PatchTab = tabs->widget(4);
 
@@ -148,7 +147,7 @@ layoutDl->addWidget(request,        2, 1);
 scanReseau = new QPushButton;
 scanReseau->setText("Go OSC");
 scanReseau->setFocusPolicy(Qt::NoFocus);
-scanReseau->setFixedHeight(screenWidth/5);
+//scanReseau->setFixedHeight(screenWidth/5);
 
 castButton = new QPushButton;
 castButton->setText("Mode = Unicast");
@@ -334,10 +333,14 @@ magicSlider->setValue(50);
 magicSlider->setEnabled(false);
 magicSlider->setSizePolicy(QSizePolicy:: Expanding , QSizePolicy::Expanding);
 magicSlider->setFixedWidth(screenWidth/6.5);
-magicSlider->setFixedHeight(screenHeight/2);
+//magicSlider->setFixedHeight(screenHeight/2);
 magicSlider->setStyleSheet("QSlider::groove:disabled   { border: 1px outset indigo; background: indigo; border-radius: 4px;}"
                            "QSlider::sub-page:disabled { border: 1px outset indigo; background: indigo; border-radius: 4px;}"
                            "QSlider::handle:disabled   { border: 3px outset fuchsia;border-radius: 10px; background: transparent;color : fushia;}");
+
+QVBoxLayout *magSl = new QVBoxLayout(magicSliderT);
+magSl->setContentsMargins(0,0,0,0);
+magSl->addWidget(magicSlider);
 
 textMagicSlider = new QLabel(magicSlider);
 textMagicSlider->setText("S\n\nL\n\nI\n\nD\n\nE");
@@ -372,7 +375,7 @@ ecrantxt->setSizePolicy(QSizePolicy:: Minimum , QSizePolicy::Expanding);
 ecrantxt->setStyleSheet("QLineEdit{background: lightblue; color:black; font-size: 20px }");
 ecrantxt->setReadOnly(true);
 ecrantxt->setAlignment(Qt::AlignCenter|Qt::AlignLeading|Qt::AlignLeft);
-ecrantxt->setMinimumHeight(screenHeight/10);
+//ecrantxt->setMinimumHeight(screenHeight/10);
 
 yes = new QPushButton;
 yes->setText("YES");
@@ -397,7 +400,7 @@ masterSceneT->setSizePolicy(QSizePolicy:: Expanding , QSizePolicy::Expanding);
 
 
 masterScene = new QProgressBar(masterSceneT);
-masterScene->setFixedHeight(screenHeight/15);
+//masterScene->setFixedHeight(screenHeight/15);
 masterScene->setMaximum(255);
 masterScene->setValue(255);
 masterScene->setTextVisible(false);
@@ -423,7 +426,7 @@ masterSubsT->setStyleSheet("QFrame {border :0px outset transparent}");
 masterSubsT->setSizePolicy(QSizePolicy:: Expanding , QSizePolicy::Expanding);
 
 masterSubs = new QProgressBar(masterSubsT);
-masterSubs->setFixedHeight(screenHeight/15);
+//masterSubs->setFixedHeight(screenHeight/15);
 masterSubs->setMaximum(255);
 masterSubs->setValue(255);
 masterSubs->setTextVisible(false);
@@ -516,7 +519,7 @@ subnumpage->setFixedHeight(screenHeight/16);
 
 subnumpageLabel = new QLabel(subnumpage);
 subnumpageLabel->setStyleSheet("QLabel { background: lightblue; color: black;}");
-subnumpageLabel->setFixedWidth(subnumpage->width()*2);
+subnumpageLabel->setFixedWidth(screenWidth/12.5);
 subnumpageLabel->setFixedHeight(screenHeight/16);
 
 nameOrContent = new QPushButton;
@@ -997,7 +1000,25 @@ layoutSub10->addWidget(Flash10);
 layoutSub10->addWidget(subnum10);
 layoutSub10->addWidget(Sub10T);
 
-QVBoxLayout *layoutSU = new QVBoxLayout;
+layoutSubs1 = new QVBoxLayout;
+layoutSubs1->addLayout(layoutSub1);
+layoutSubs1->addLayout(layoutSub2);
+layoutSubs1->addLayout(layoutSub3);
+layoutSubs1->addLayout(layoutSub4);
+layoutSubs1->addLayout(layoutSub5);
+
+layoutSubs2 = new QVBoxLayout;
+layoutSubs2->addLayout(layoutSub6);
+layoutSubs2->addLayout(layoutSub7);
+layoutSubs2->addLayout(layoutSub8);
+layoutSubs2->addLayout(layoutSub9);
+layoutSubs2->addLayout(layoutSub10);
+
+layoutSubs = new QVBoxLayout;
+layoutSubs->addLayout(layoutSubs1);
+layoutSubs->addLayout(layoutSubs2);
+
+layoutSU = new QVBoxLayout;
 layoutSU->setContentsMargins(0,5,10,0);
 layoutSU->setSpacing(1);
 layoutSU->addSpacing(10);
@@ -1005,16 +1026,8 @@ layoutSU->addLayout(layoutTitre);
 layoutSU->addSpacing(10);
 layoutSU->addWidget(nomPageSub);
 layoutSU->addSpacing(10);
-layoutSU->addLayout(layoutSub1);
-layoutSU->addLayout(layoutSub2);
-layoutSU->addLayout(layoutSub3);
-layoutSU->addLayout(layoutSub4);
-layoutSU->addLayout(layoutSub5);
-layoutSU->addLayout(layoutSub6);
-layoutSU->addLayout(layoutSub7);
-layoutSU->addLayout(layoutSub8);
-layoutSU->addLayout(layoutSub9);
-layoutSU->addLayout(layoutSub10);
+layoutSU->addLayout(layoutSubs);
+
 
 SUBsTab->setLayout(layoutSU);
 
@@ -1347,6 +1360,7 @@ nDimmer->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 QScroller::grabGesture(nDimmer, QScroller::LeftMouseButtonGesture);
 
 testLevelT = new SlideH;
+testLevelT->setAttribute(Qt::WA_AcceptTouchEvents);
 testLevelT->setStyleSheet("QFrame {border :0px outset transparent}");
 testLevelT->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 testLevelT->setFixedWidth(screenWidth/7.5);
@@ -1458,3 +1472,45 @@ PatchTab->setLayout(layoutP);
 setCentralWidget(tabs);
 }
 
+
+
+
+
+
+void WindowTeleco::orientationChnged(Qt::ScreenOrientation orientation)
+{
+if (orientation==Qt::LandscapeOrientation)
+        {qDebug()<<"h";
+    layoutSubs->removeItem(layoutSubs1);
+    layoutSubs->removeItem(layoutSubs2);
+    layoutSU->removeItem(layoutSubs);
+
+    delete layoutSubs;
+
+    layoutSubs = new QHBoxLayout;
+    layoutSubs->addLayout(layoutSubs1);
+    layoutSubs->addLayout(layoutSubs2);
+
+    layoutSU->addLayout(layoutSubs);
+
+  //  layoutSU->update();
+    SUBsTab->setLayout(layoutSU);
+    tabs->update();
+        }
+if (orientation==Qt::PortraitOrientation)
+        {qDebug()<<"v";
+    layoutSubs->removeItem(layoutSubs1);
+    layoutSubs->removeItem(layoutSubs2);
+    layoutSU->removeItem(layoutSubs);
+
+    delete layoutSubs;
+
+    layoutSubs = new QVBoxLayout;
+    layoutSubs->addLayout(layoutSubs1);
+    layoutSubs->addLayout(layoutSubs2);
+
+    layoutSU->addLayout(layoutSubs);
+
+  //  layoutSU->update();
+        }
+}

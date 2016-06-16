@@ -83,6 +83,12 @@ Worker::Worker(QObject *parent) :
     groupAddress = QHostAddress("225.9.99.9");
     IpSend = groupAddress;
 
+
+    connect(qApp->primaryScreen(), SIGNAL(geometryChanged(QRect)), this, SLOT(updateDimensions(QRect)));
+    connect(qApp->primaryScreen(), SIGNAL(primaryOrientationChanged(Qt::ScreenOrientation)), ui, SLOT(orientationChnged(Qt::ScreenOrientation)));
+
+
+
     connect(listener, SIGNAL(workRequested()),   thread, SLOT(start()));
     connect(thread,   SIGNAL(started()),       listener, SLOT(goOSC()));
     connect(listener, SIGNAL(finished()),        thread, SLOT(quit()));
@@ -1335,4 +1341,10 @@ void Worker::supensionEtReveil(Qt::ApplicationState state)
         scan();
         tabindex(ui->tabs->currentIndex());
     }
+}
+
+void Worker::updateDimensions(QRect)
+{
+     //screenWidth  = screen->geometry().width();
+     //screenHeight = screen->geometry().height();
 }

@@ -37,8 +37,9 @@ int main(int argc, char *argv[])
     qApp->setAttribute(Qt::AA_EnableHighDpiScaling);
     QApplication a(argc, argv);
 
-     screenWidth = (QApplication::desktop()->width());
-     screenHeight = (QApplication::desktop()->height());
+    QScreen *screen  = qApp->primaryScreen();
+    screenWidth = screen->geometry().width();
+    screenHeight= screen->geometry().height();
 
     QFile f(":/MyStyleSheet.css");
     if (f.open(QIODevice::ReadOnly))
